@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        form div {
+            margin-bottom: 1em;
+        }
+        label {
+            display: block;
+            margin-bottom: .5em;
+            color: #333;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div th:if="${message}" th:text="${message}"></div>
+    <form th:action="@{/register}" th:object="${member}" method="post">
+        <div>
+            <label for="email">아이디 (이메일):</label>
+            <input type="text" id="email" th:field="*{email}" placeholder="Enter Email"/>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error">Email Error</div>
+        </div>
+        <div>
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Enter Password"/>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error">Password Error</div>
+        </div>
+        <div>
+            <label for="confirmPassword">비밀번호 확인:</label>
+            <input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="Confirm Password"/>
+        </div>
+        <button type="submit">가입</button>
+    </form>
+</div>
+</body>
+</html>
